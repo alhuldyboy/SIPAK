@@ -30,10 +30,13 @@ header("location: about.php");
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
+        <li class="active"><a href="index.php">BERANDA</a></li>
+        <li><a href="diagnosa.php">DIAGNOSA PENYAKIT KULIT</a></li>
+        <li><a href="daftarpenyakit.php">DAFTAR PENYAKIT KULIT</a></li>
+        <li><a href="about.php">ABOUT</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-          
-          
+        <li><a href="#" id="myBtn"><span class="glyphicon glyphicon-log-in"></span> LOGIN</a></li>
       </ul>
     </div>
   </div>
@@ -42,15 +45,9 @@ header("location: about.php");
 <div class="container-fluid text-center">    
   <div class="row content">
     <div class="col-sm-2 sidenav">
-      <p><a href="index.php"><button type="button" class="btn btn-primary btn-block active">BERANDA</button></a></p>
-      <p><a href="diagnosa.php"><button type="button" class="btn btn-primary btn-block">DIAGNOSA PENYAKIT</button></a></p>
-      <p><a href="daftarpenyakit.php"><button type="button" class="btn btn-primary btn-block">DAFTAR PENYAKIT</button></a></p>
-      <p><a href="about.php"><button type="button" class="btn btn-primary btn-block">ABOUT</button></a></p>
-      <br><br><br><br><br><br><br><br><br><br>
-      <p><button type="button" class="btn btn-primary btn-block" id="myBtn">LOGIN</button></p>
     </div>
     <div class="col-sm-8 text-left"> 
-      <center><h2>SISTEM PAKAR DIAGNOSA PENYAKIT KULIT PADA TUBUH MANUSIA
+      <center><h2>SISTEM PAKAR DIAGNOSA HAMA DAN PENYAKIT TANAMAN BAWANG MERAH DAN CABAI
 </h2></center><br>
     <div class="alert alert-danger alert-dismissible" id="alert">
         <a href="index.php" class="close">&times;</a>

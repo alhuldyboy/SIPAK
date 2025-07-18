@@ -5,7 +5,6 @@ if(isset($_SESSION['login_user'])){
 header("location: about.php");
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,15 +24,18 @@ header("location: about.php");
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
+        <span class="icon-bar"></span>
       </button>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
+        <li><a href="homeadmin.php">BERANDA</a></li>
+        <li><a href="penyakit.php">NAMA PENYAKIT KULIT</a></li>
+        <li><a href="gejala.php">GEJALA PENYAKIT KULIT</a></li>
+        <li class="active"><a href="basispengetahuan.php">BASIS PENGETAHUAN PENYAKIT KULIT MANUSIA</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-          
-          
+        <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> LOGOUT</a></li>
       </ul>
     </div>
   </div>
@@ -51,7 +53,7 @@ header("location: about.php");
     </div>
     <div class="col-sm-8 text-left"> 
         
-      <h2 class="text-center">EDIT PENYAKIT</h2>
+      <h2 class="text-center">EDIT HAMA DAN PENYAKIT</h2>
     <form method="post">
       <div class="form-group">
       			<br><label class="control-label col-sm-2">ID :</label>
@@ -87,7 +89,7 @@ header("location: about.php");
                        $sql = mysqli_query ($konek_db,$tampil);
                        while($data = mysqli_fetch_array ($sql))
                     {
-                       echo "<input type='text'  class='form-control' id='bagiantubuh' name='bagiantubuh' value='".$data['bagiantubuh']."' data-error='Isi kolom dengan benar'><br>";
+                       echo "<input type='text'  class='form-control' id='jenistanaman' name='jenistanaman' value='".$data['jenistanaman']."' data-error='Isi kolom dengan benar'><br>";
                     }
                 ?>
      		 </div>
@@ -100,9 +102,9 @@ header("location: about.php");
                        $sql = mysqli_query ($konek_db,$tampil);
                        while($data = mysqli_fetch_array ($sql))
                     {
-                       echo "<input type='text'  class='form-control' id='bagiantubuh' readonly value='".$data['gejala']."'><br>";
+                       echo "<input type='text'  class='form-control' id='jenistanaman' readonly value='".$data['gejala']."'><br>";
                     }
-                echo "<input type='text'  class='form-control' id='bagiantubuh' readonly value=''><br>";
+                echo "<input type='text'  class='form-control' id='jenistanaman' readonly value=''><br>";
                 ?>
      		 </div>
         </div>	
@@ -163,12 +165,12 @@ header("location: about.php");
                     if(isset($_POST['submit'])){
                       $id = $_GET['id'];
                       $namapenyakit = $_POST['namapenyakit'];
-                      $bagiantubuh = $_POST['bagiantubuh'];
+                      $jenistanaman = $_POST['jenistanaman'];
                       $kulturteknis = $_POST['kulturteknis'];
                       $fisikmekanis = $_POST['fisikmekanis'];
                       $kimiawi = $_POST['kimiawi'];
                       $hayati = $_POST['hayati'];     
-                      $query="update penyakit SET namapenyakit='".$_POST['namapenyakit']."', bagiantubuh='".$_POST['bagiantubuh']."', kulturteknis='".$_POST['kulturteknis']."', fisikmekanis='".$_POST['fisikmekanis']."', kimiawi='".$_POST['kimiawi']."', hayati='".$_POST['hayati']."' WHERE idpenyakit='$id'";
+                      $query="update penyakit SET namapenyakit='".$_POST['namapenyakit']."', jenistanaman='".$_POST['jenistanaman']."', kulturteknis='".$_POST['kulturteknis']."', fisikmekanis='".$_POST['fisikmekanis']."', kimiawi='".$_POST['kimiawi']."', hayati='".$_POST['hayati']."' WHERE idpenyakit='$id'";
                       mysqli_query($konek_db, $query);
                     }
                 ?>
@@ -178,7 +180,7 @@ header("location: about.php");
 </div>
 
 <footer class="container-fluid text-center">
-  <p>S1-Sistem Informasi 2013</p>
+  <p>Sistem Pakar Diagnosa Penyakit Kulit Manusia</p>
 </footer>
 
 </body>

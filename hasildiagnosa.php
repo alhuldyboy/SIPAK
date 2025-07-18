@@ -1,9 +1,7 @@
 <?php
 include('koneksi.php');
- 
-if(isset($_SESSION['login_user'])){
-header("location: about.php");
-}
+session_start();
+// Tidak perlu redirect ke about.php, biarkan guest bisa akses
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,6 +13,14 @@ header("location: about.php");
   <link rel="stylesheet" href="css/style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+.navbar-nav > .active > a,
+.navbar-nav > .active > a:focus,
+.navbar-nav > .active > a:hover {
+  background-color: #222 !important;
+  color: #fff !important;
+}
+</style>
 </head>
 <body>
 
@@ -24,13 +30,18 @@ header("location: about.php");
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
+        <span class="icon-bar"></span>
       </button>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
+        <li><a href="homeadmin.php">BERANDA</a></li>
+        <li><a href="penyakit.php">NAMA PENYAKIT KULIT</a></li>
+        <li><a href="gejala.php">GEJALA PENYAKIT KULIT</a></li>
+        <li><a href="basispengetahuan.php">BASIS PENGETAHUAN PENYAKIT KULIT MANUSIA</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+        <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> LOGOUT</a></li>
       </ul>
     </div>
   </div>
@@ -38,155 +49,104 @@ header("location: about.php");
   
 <div class="container-fluid text-center">    
   <div class="row content">
-<div class="col-sm-2 sidenav">
-  <p><a href="homeadmin.php"><button type="button" class="btn btn-primary btn-block">BERANDA</button></a></p>
-  <p><a href="penyakit.php"><button type="button" class="btn btn-primary btn-block">NAMA PENYAKIT</button></a></p>
-  <p><a href="gejala.php"><button type="button" class="btn btn-primary btn-block">GEJALA</button></a></p>
-  <p><a href="basispengetahuan.php"><button type="button" class="btn btn-primary btn-block active">BASIS PENGETAHUAN</button></a></p>
-  <br><br><br><br><br><br><br><br><br><br>
-  <p><a href="logout.php"><button type="button" class="btn btn-primary btn-block" id="myBtn">LOGOUT</button></a></p>
-</div>
+    <div class="col-sm-2 sidenav">
+    </div>
     <div class="col-sm-8 text-left"> 
-      <h2 class="text-center">DETAIL DIAGNOSA</h2>
-      <div class="form-group"  method="POST">
-      			<br><label class="control-label col-sm-2">ID :</label>
-      		<div class="col-sm-10">
-                <?php
-                       $tampil = "SELECT * FROM penyakit where idpenyakit='".$_GET['id']."'";
-                       $sql = mysqli_query ($konek_db,$tampil);
-                       while($data = mysqli_fetch_array ($sql))
-                    {
-                       echo "<input type='text'  class='form-control' id='idpenyakit' readonly value='".$data['idpenyakit']."'><br>";
-                    }
-                ?>
-     		 </div>
-        </div>	
-        <div class="form-group"  method="POST">
-      			<br><label class="control-label col-sm-2">NAMA :</label>
-      		<div class="col-sm-10">
-                <?php
-                       $tampil = "SELECT * FROM penyakit where idpenyakit='".$_GET['id']."'";
-                       $sql = mysqli_query ($konek_db,$tampil);
-                       while($data = mysqli_fetch_array ($sql))
-                    {
-                       echo "<input type='text'  class='form-control' id='namapenyakit' readonly value='".$data['namapenyakit']."'><br>";
-                    }
-                ?>
-     		 </div>
-        </div>
-        <div class="form-group"  method="POST">
-      			<br><label class="control-label col-sm-2">JENIS :</label>
-      		<div class="col-sm-10">
-                <?php
-                       $tampil = "SELECT * FROM penyakit where idpenyakit='".$_GET['id']."'";
-                       $sql = mysqli_query ($konek_db,$tampil);
-                       while($data = mysqli_fetch_array ($sql))
-                    {
-                       echo "<input type='text'  class='form-control' id='jenistubuh' readonly value='".$data['jenistubuh']."'><br>";
-                    }
-                ?>
-     		 </div>
-        </div>	
-        <div class="form-group"  method="POST">
-      			<br><label class="control-label col-sm-2">GEJALA :</label>
-      		<div class="col-sm-10">
-                <?php
-                       $tampil = "SELECT * FROM penyakit p, basispengetahuan b where p.idpenyakit='".$_GET['id']."' and p.namapenyakit=b.namapenyakit";
-                       $sql = mysqli_query ($konek_db,$tampil);
-                       while($data = mysqli_fetch_array ($sql))
-                    {
-                       echo "<input type='text'  class='form-control' id='jenistubuh' readonly value='".$data['gejala']."'><br>";
-                    }
-                ?>
-     		 </div>
-        </div>	
-        <div class="form-group"  method="POST">
-      			<br><label class="control-label col-sm-2">KULTUR TEKNIS :</label><br>
-      		<div class="col-sm-10">
-                <?php
-                       $tampil = "SELECT * FROM penyakit where idpenyakit='".$_GET['id']."'";
-                       $sql = mysqli_query ($konek_db,$tampil);
-                       while($data = mysqli_fetch_array ($sql))
-                    {
-                       echo "<textarea  rows='8' class='form-control' id='penanganan'  readonly>".$data['kulturteknis']."</textarea><br>";
-                    }
-                ?>
-     		 </div>  
-        </div>
-         <div class="form-group"  method="POST">
-      			<br><label class="control-label col-sm-2">FISIK MEKANIS :</label><br>
-      		<div class="col-sm-10">
-                <?php
-                       $tampil = "SELECT * FROM penyakit where idpenyakit='".$_GET['id']."'";
-                       $sql = mysqli_query ($konek_db,$tampil);
-                       while($data = mysqli_fetch_array ($sql))
-                    {
-                       echo "<textarea rows='8' class='form-control' id='penanganan' readonly>".$data['fisikmekanis']."</textarea><br>";
-                    }
-                ?>
-     		 </div>  
-        </div>
-         <div class="form-group"  method="POST">
-      			<br><label class="control-label col-sm-2">KIMIAWI :</label><br>
-      		<div class="col-sm-10">
-                <?php
-                       $tampil = "SELECT * FROM penyakit where idpenyakit='".$_GET['id']."'";
-                       $sql = mysqli_query ($konek_db,$tampil);
-                       while($data = mysqli_fetch_array ($sql))
-                    {
-                       echo "<textarea  rows='8' class='form-control' id='penanganan' readonly>".$data['kimiawi']."</textarea><br>";
-                    }
-                ?>
-     		 </div>  
-        </div>
-          <div class="form-group"  method="POST">
-      			<br><label class="control-label col-sm-2">HAYATI :</label><br>
-      		<div class="col-sm-10">
-                <?php
-                       $tampil = "SELECT * FROM penyakit where idpenyakit='".$_GET['id']."'";
-                       $sql = mysqli_query ($konek_db,$tampil);
-                       while($data = mysqli_fetch_array ($sql))
-                    {
-                       echo "<textarea rows='8' class='form-control' id='penanganan' readonly>".$data['hayati']."</textarea><br>";
-                    }
-                ?>
-     		 </div>  
-        </div>
+      <h2 class="text-center">Hasil Diagnosa Penyakit Kulit</h2>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Kode Penyakit</th>
+              <th>Nama Penyakit</th>
+              <th>Deskripsi</th>
+              <th>Penanganan</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            $no = 1;
+            $query = mysqli_query($konek_db, "SELECT * FROM penyakit");
+            while ($data = mysqli_fetch_array($query)) {
+              echo '<tr>';
+              echo '<td>' . $no++ . '</td>';
+              echo '<td>' . $data['idpenyakit'] . '</td>';
+              echo '<td>' . $data['namapenyakit'] . '</td>';
+              echo '<td>' . (isset($data['deskripsi']) ? $data['deskripsi'] : '-') . '</td>';
+              echo '<td>' . (isset($data['penanganan']) ? $data['penanganan'] : '-') . '</td>';
+              echo '</tr>';
+            }
+            ?>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
- <div class="modal fade" id="myModal" role="dialog">
+  <!-- Modal Login -->
+  <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-    
-      <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header" style="padding:35px 50px;">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4><span class="glyphicon glyphicon-lock"></span> Login</h4>
         </div>
         <div class="modal-body" style="padding:40px 50px;">
-         <form role="form" method="post" action="ceklogin.php">
+          <form role="form" method="post" action="ceklogin.php">
             <div class="form-group" method="post">
               <label for="username"><span class="glyphicon glyphicon-user"></span> Username</label>
-              <input type="text" class="form-control" name="username" id="password" placeholder="Enter username">
+              <input type="text" class="form-control" name="username" placeholder="Enter username">
             </div>
             <div class="form-group" method="post">
               <label for="password"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-              <input type="password" class="form-control" name="password" id="password" placeholder="Enter password">
+              <input type="password" class="form-control" name="password" placeholder="Enter password">
             </div>
-              <button type="submit" id="submit" nama="submit" class="btn btn-primary btn-block" method="post"><span class="glyphicon glyphicon-off"></span> Login</button>
+            <button type="submit" id="submit" name="submit" class="btn btn-primary btn-block" method="post"><span class="glyphicon glyphicon-off"></span> Login</button>
+          </form>
+          <hr>
+          <div class="text-center">
+            <a href="#" id="showRegister">Belum punya akun? Register di sini</a>
+          </div>
+          <form id="registerForm" method="post" action="register.php" style="display:none; margin-top:20px;">
+            <div class="form-group">
+              <label>Nama Lengkap</label>
+              <input type="text" name="nama" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Username</label>
+              <input type="text" name="username" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" name="submit" class="btn btn-success btn-block">Register</button>
+            <a href="#" id="showLogin" class="btn btn-default btn-block">Kembali ke Login</a>
           </form>
         </div>
       </div>
     </div>
-  </div> 
+  </div>
 <footer class="container-fluid text-center">
-  <p>S1-Sistem Informasi 2013</p>
+  <p>Sistem Pakar Diagnosa Penyakit Kulit Manusia</p>
 </footer>
 <script>
 $(document).ready(function(){
     $("#myBtn").click(function(){
         $("#myModal").modal();
+    });
+    $("#showRegister").click(function(e){
+        e.preventDefault();
+        $("form[role='form']").hide();
+        $("#registerForm").show();
+        $(this).hide();
+    });
+    $("#showLogin").click(function(e){
+        e.preventDefault();
+        $("#registerForm").hide();
+        $("form[role='form']").show();
+        $("#showRegister").show();
     });
 });
 </script>

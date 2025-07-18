@@ -29,15 +29,18 @@ header("location: about.php");
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
+        <span class="icon-bar"></span>
       </button>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
+        <li><a href="homeadmin.php">BERANDA</a></li>
+        <li><a href="penyakit.php">NAMA PENYAKIT KULIT</a></li>
+        <li class="active"><a href="gejala.php">GEJALA PENYAKIT KULIT</a></li>
+        <li><a href="basispengetahuan.php">BASIS PENGETAHUAN PENYAKIT KULIT MANUSIA</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-          
-          
+        <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> LOGOUT</a></li>
       </ul>
     </div>
   </div>
@@ -45,84 +48,59 @@ header("location: about.php");
   
 <div class="container-fluid text-center">    
   <div class="row content">
-    <div class="col-sm-2 sidenav">
-      <p><a href="homeadmin.php"><button type="button" class="btn btn-primary btn-block">BERANDA</button></a></p>
-      <p><a href="hamadanpenyakit.php"><button type="button" class="btn btn-primary btn-block active">HAMA dan PENYAKIT</button></a></p>
-      <p><a href="gejala.php"><button type="button" class="btn btn-primary btn-block">GEJALA</button></a></p>
-      <p><a href="basispengetahuan.php"><button type="button" class="btn btn-primary btn-block">BASIS PENGETAHUAN</button></a></p>
-      <br><br><br><br><br><br><br><br><br><br>
-      <p><a href="logout.php"><button type="button" class="btn btn-primary btn-block" id="myBtn">LOGOUT</button></a></p>
-    </div>
-    <div class="col-sm-8 text-left">
-        <h2 class="text-center">INPUT HAMA DAN PENYAKIT</h2>
+<div class="col-sm-2 sidenav">
+ </div>
+    <div class="col-sm-8 text-left"> 
+        <h2 class="text-center">INPUT PENYAKIT KULIT MANUSIA</h2>
       <form class="form-horizontal" method="post" data-toggle="validator" role="form" action="ainputpenyakit.php">
           
           <div class="form-group has-feedback">
-				<label class="control-label col-sm-2" for="nama">ID Penyakit:</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" required name="idpenyakit" data-error="Isi kolom dengan benar">
+                <label class="control-label col-sm-2" for="nama">ID Penyakit:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" required name="idpenyakit" data-error="Isi kolom dengan benar">
                     <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                     <div class="help-block with-errors" role="alert"></div>
-				</div>
+                </div>
                 
-			</div>
-			<div class="form-group has-feedback">
-				<label class="control-label col-sm-2"  for="nama">Nama Penyakit:</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" required name="namapenyakit" data-error="Isi kolom dengan benar">
+            </div>
+            <div class="form-group has-feedback">
+                <label class="control-label col-sm-2"  for="nama">Nama Penyakit:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" required name="namapenyakit" data-error="Isi kolom dengan benar">
                     <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                     <div class="help-block with-errors" role="alert"></div>
-				</div>
-			</div>
-			<div class="form-group ">
-				<label class="control-label col-sm-2"  for="alamat">Jenis tubuh:</label>
-				<div class="col-sm-10">           
-				<select class="form-control" name="jenistubuh" onChange='this.form.submit();'>
-				<option>tubuh</option>
-                <option>Bawang</option>
-                <option>Cabai</option>
-  		        </select>
-                    
-                    
-                    
-				</div>
-			</div>	
+                </div>
+            </div>
+            <div class="form-group ">
+                <label class="control-label col-sm-2"  for="alamat">Bagian Kulit:</label>
+                <div class="col-sm-10">           
+                <select class="form-control" name="bagiankulit">
+                <option>Bagian Kulit</option>
+                <option>Wajah</option>
+                <option>Tangan</option>
+                <option>Kaki</option>
+                <option>Punggung</option>
+                <option>Dada</option>
+                <option>Perut</option>
+                <option>Lainnya</option>
+                  </select>
+                </div>
+            </div>	
           <div class="form-group">
-				<label class="control-label col-sm-2" for="alamat">Kultur Teknis:</label>
-				<div class="col-sm-10">
-                    <textarea rows='8' class="form-control" name="kulturteknis"></textarea>
-				</div>
-			</div>
-          <div class="form-group">
-				<label class="control-label col-sm-2" for="alamat">Fisik Mekanis:</label>
-				<div class="col-sm-10">
-                    <textarea rows='8' class="form-control" name="fisikmekanis"></textarea>
-				</div>
-			</div>
-          <div class="form-group">
-				<label class="control-label col-sm-2" for="alamat">Kimiawi:</label>
-				<div class="col-sm-10">
-                    <textarea rows='8' class="form-control" name="kimiawi"></textarea>
-				</div>
-			</div>
-          <div class="form-group">
-				<label class="control-label col-sm-2" for="alamat">Hayati:</label>
-				<div class="col-sm-10">
-                    <textarea rows='8' class="form-control" name="hayati"></textarea>
-				</div>
-			</div>
+                <label class="control-label col-sm-2" for="alamat">Penanganan:</label>
+                <div class="col-sm-10">
+                    <textarea rows='8' class="form-control" name="penanganan"></textarea>
+                </div>
+            </div>
           <button type="submit" name ="submit" class="btn btn-primary">Simpan</button><br>
           <?php		
                     if(isset($_POST['submit'])){
                     
                     $idpenyakit     = $_POST['idpenyakit'];
                     $namapenyakit   = $_POST['namapenyakit'];
-                    $jenistubuh   = $_POST['jenistubuh'];
-                    $kulturteknis   = $_POST['kulturteknis'];
-                    $fisikmekanis   = $_POST['fisikmekanis'];
-                    $kimiawi        = $_POST['kimiawi'];
-                    $hayati         = $_POST['hayati'];
-                    $query="INSERT INTO penyakit SET idpenyakit='$idpenyakit',namapenyakit='$namapenyakit',jenistubuh='$jenistubuh',kulturteknis='$kulturteknis', fisikmekanis='$fisikmekanis',kimiawi='$kimiawi',hayati='$hayati'";
+                    $bagiankulit    = $_POST['bagiankulit'];
+                    $penanganan     = $_POST['penanganan'];
+                    $query="INSERT INTO penyakit SET idpenyakit='$idpenyakit',namapenyakit='$namapenyakit',bagiankulit='$bagiankulit',penanganan='$penanganan'";
                    $result=mysqli_query($konek_db, $query);
                         if($result){
                             echo '<script language="javascript">';
@@ -131,7 +109,7 @@ header("location: about.php");
                             }
                     }
                 ?>
-		</form><br>
+        </form><br>
     </div>
   </div>
 </div>

@@ -21,38 +21,49 @@ include "session.php";
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
+        <span class="icon-bar"></span>
       </button>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
+        <li><a href="homeadmin.php">BERANDA</a></li>
+        <li><a href="penyakit.php">NAMA PENYAKIT KULIT</a></li>
+        <li><a href="gejala.php">GEJALA PENYAKIT KULIT</a></li>
+        <li class="active"><a href="basispengetahuan.php">BASIS PENGETAHUAN PENYAKIT KULIT MANUSIA</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+        <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> LOGOUT</a></li>
       </ul>
     </div>
   </div>
 </nav>
-  
-<div class="container-fluid text-center">    
-  <div class="row content">
-    <div class="col-sm-2 sidenav">
-  <p><a href="homeadmin.php"><button type="button" class="btn btn-primary btn-block">BERANDA</button></a></p>
-  <p><a href="penyakit.php"><button type="button" class="btn btn-primary btn-block">NAMA PENYAKIT</button></a></p>
-  <p><a href="gejala.php"><button type="button" class="btn btn-primary btn-block">GEJALA</button></a></p>
-  <p><a href="basispengetahuan.php"><button type="button" class="btn btn-primary btn-block active">BASIS PENGETAHUAN</button></a></p>
-  <br><br><br><br><br><br><br><br><br><br>
-  <p><a href="logout.php"><button type="button" class="btn btn-primary btn-block" id="myBtn">LOGOUT</button></a></p>
-</div>
-    <div class="col-sm-8 text-left"> 
-       <center><h2>SISTEM PAKAR DIAGNOSA PENYAKIT KULIT PADA TUBUH MANUSIA
+       <center><h2>SISTEM PAKAR DIAGNOSA PENYAKIT KULIT MANUSIA
 </h2></center><br>
-      <p>Selamat datang <?php echo $login_session; ?>.Silahkan pilih menu yang diinginkan</p>
-    </div>
-  </div>
+<div style="margin-left:5cm;">
+  <p>Selamat datang <?php echo $login_session; ?>. Silahkan pilih menu yang diinginkan</p>
 </div>
 
+<style>
+  html, body {
+    height: 100%;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  .content {
+    flex: 1;
+  }
+  footer {
+    margin-bottom: auto;
+    width: 100%;
+  }
+</style>
+
+<div class="content"></div>
 <footer class="container-fluid text-center">
-  <p>Yang Punya Kawasan </p>
+  <p>Sistem Pakar Diagnosa Penyakit Kulit Manusia</p>
 </footer>
 
 </body>

@@ -47,20 +47,26 @@ header("location: about.php");
     <div class="col-sm-2 sidenav">
     </div>
     <div class="col-sm-8 text-left"> 
-           <h2 class="text-center">DAFTAR HAMA DAN PENYAKIT</h2>
+           <h2 class="text-center">DAFTAR PENYAKIT KULIT MANUSIA</h2>
       <form id="form1" name="form1" method="post" action="hamadanpenyakit.php">
-				<label for="sel1">Jenis Tanaman</label>            
+				<label for="sel1">Bagian Kulit</label>            
 				<select class="form-control"  name="tanaman" onChange='this.form.submit();'>
-				<option>Tanaman</option>
-                <option>Bawang</option>
-                <option>Cabai</option>
-  		</select>
+				<option>Bagian Kulit</option>
+                <option>Wajah</option>
+                <option>Tangan</option>
+                <option>Kaki</option>
+                <option>Punggung</option>
+                <option>Dada</option>
+                <option>Perut</option>
+                <option>Lainnya</option>
+				</select>
   </form>
 <br>
 <a href="php/ainputpenyakit.php"><button type="button" class="btn btn-default">
   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 </button></a>
-    	<br><br>
+     
+        <br><br>
             <div class="box-body table-responsive">
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>

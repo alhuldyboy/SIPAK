@@ -1,3 +1,10 @@
+<?php
+include('koneksi.php');
+ 
+if(isset($_SESSION['login_user'])){
+header("location: about.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +15,14 @@
   <link rel="stylesheet" href="css/style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+.navbar-nav > .active > a,
+.navbar-nav > .active > a:focus,
+.navbar-nav > .active > a:hover {
+  background-color: #222 !important;
+  color: #fff !important;
+}
+</style>
 </head>
 <body>
 
@@ -15,15 +30,17 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
       </button>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
+        <li class="active"><a href="index.php">BERANDA</a></li>
+        <li><a href="diagnosa.php">DIAGNOSA PENYAKIT KULIT</a></li>
+        <li><a href="daftarpenyakit.php">DAFTAR PENYAKIT KULIT</a></li>
+        <li><a href="about.php">ABOUT</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" id="myBtn"><span class="glyphicon glyphicon-log-in"></span> LOGIN</a></li>
       </ul>
     </div>
   </div>
@@ -32,62 +49,78 @@
 <div class="container-fluid text-center">    
   <div class="row content">
     <div class="col-sm-2 sidenav">
-      <p><a href="index.php"><button type="button" class="btn btn-primary btn-block">BERANDA</button></a></p>
-      <p><a href="diagnosa.php"><button type="button" class="btn btn-primary btn-block">DIAGNOSA PENYAKIT</button></a></p>
-      <p><a href="daftarpenyakit.php"><button type="button" class="btn btn-primary btn-block">DAFTAR PENYAKIT</button></a></p>
-      <p><a href="about.php"><button type="button" class="btn btn-primary btn-block active">ABOUT</button></a></p>
-        <br><br><br><br><br><br><br><br><br><br>
-      <p><button type="button" class="btn btn-primary btn-block" id="myBtn">LOGIN</button></p>
     </div>
     <div class="col-sm-8 text-left"> 
       <center><h2>ABOUT</h2></center>
       <div class="panel panel-success">
       <div class="panel-heading">Dibuat Oleh :</div>
-      <div class="panel-body">
-          Dony Prasetyo<br>
-          Rahayu Tri Wahyuni<br>
-          Dikki Setiawan<br>
-          Lyli Wijaya<br>
-          Muhammad Faiz Akmal<br>
-          Damar Dananjayal<br>
-          Faizal Farid Hidayat<br>
-          </div>
-    </div>
+      <div class="panel-body">Faizal Farid Hidayat</div>
     </div>
   </div>
 </div>
- <div class="modal fade" id="myModal" role="dialog">
+  <!-- Modal Login -->
+  <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-    
-      <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header" style="padding:35px 50px;">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4><span class="glyphicon glyphicon-lock"></span> Login</h4>
         </div>
         <div class="modal-body" style="padding:40px 50px;">
-         <form role="form" method="post" action="ceklogin.php">
+          <form role="form" method="post" action="ceklogin.php">
             <div class="form-group" method="post">
               <label for="username"><span class="glyphicon glyphicon-user"></span> Username</label>
-              <input type="text" class="form-control" name="username" id="password" placeholder="Enter username">
+              <input type="text" class="form-control" name="username" placeholder="Enter username">
             </div>
             <div class="form-group" method="post">
               <label for="password"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-              <input type="password" class="form-control" name="password" id="password" placeholder="Enter password">
+              <input type="password" class="form-control" name="password" placeholder="Enter password">
             </div>
-              <button type="submit" id="submit" nama="submit" class="btn btn-primary btn-block" method="post"><span class="glyphicon glyphicon-off"></span> Login</button>
+            <button type="submit" id="submit" name="submit" class="btn btn-primary btn-block" method="post"><span class="glyphicon glyphicon-off"></span> Login</button>
+          </form>
+          <hr>
+          <div class="text-center">
+            <a href="#" id="showRegister">Belum punya akun? Register di sini</a>
+          </div>
+          <form id="registerForm" method="post" action="register.php" style="display:none; margin-top:20px;">
+            <div class="form-group">
+              <label>Nama Lengkap</label>
+              <input type="text" name="nama" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Username</label>
+              <input type="text" name="username" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" name="submit" class="btn btn-success btn-block">Register</button>
+            <a href="#" id="showLogin" class="btn btn-default btn-block">Kembali ke Login</a>
           </form>
         </div>
       </div>
     </div>
   </div> 
 <footer class="container-fluid text-center">
-  <p>Yang Punya Kawasan</p>
+  <p>Sistem Pakar Diagnosa Penyakit Kulit Manusia</p>
 </footer>
 <script>
 $(document).ready(function(){
     $("#myBtn").click(function(){
         $("#myModal").modal();
+    });
+    $("#showRegister").click(function(e){
+        e.preventDefault();
+        $("form[role='form']").hide();
+        $("#registerForm").show();
+        $(this).hide();
+    });
+    $("#showLogin").click(function(e){
+        e.preventDefault();
+        $("#registerForm").hide();
+        $("form[role='form']").show();
+        $("#showRegister").show();
     });
 });
 </script>

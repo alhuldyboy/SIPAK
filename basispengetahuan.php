@@ -1,5 +1,7 @@
 <?php
 include "session.php";
+// Cek apakah user login sebagai admin
+$is_admin = isset($_SESSION['login_user']) && $_SESSION['login_user'] == 'admin';
 ?>
 
 <!DOCTYPE html>
@@ -26,13 +28,18 @@ $(document).ready( function () {
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
+        <span class="icon-bar"></span>
       </button>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
+        <li><a href="homeadmin.php">BERANDA</a></li>
+        <li><a href="penyakit.php">NAMA PENYAKIT KULIT</a></li>
+        <li><a href="gejala.php">GEJALA PENYAKIT KULIT</a></li>
+        <li class="active"><a href="basispengetahuan.php">BASIS PENGETAHUAN PENYAKIT KULIT MANUSIA</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+        <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> LOGOUT</a></li>
       </ul>
     </div>
   </div>
@@ -41,65 +48,43 @@ $(document).ready( function () {
 <div class="container-fluid text-center">    
   <div class="row content">
     <div class="col-sm-2 sidenav">
-  <p><a href="homeadmin.php"><button type="button" class="btn btn-primary btn-block">BERANDA</button></a></p>
-  <p><a href="penyakit.php"><button type="button" class="btn btn-primary btn-block">NAMA PENYAKIT</button></a></p>
-  <p><a href="gejala.php"><button type="button" class="btn btn-primary btn-block">GEJALA</button></a></p>
-  <p><a href="basispengetahuan.php"><button type="button" class="btn btn-primary btn-block active">BASIS PENGETAHUAN</button></a></p>
-  <br><br><br><br><br><br><br><br><br><br>
-  <p><a href="logout.php"><button type="button" class="btn btn-primary btn-block" id="myBtn">LOGOUT</button></a></p>
-</div>
+    </div>
     <div class="col-sm-8 text-left"> 
-        <h2 class="text-center">BASIS PENGETAHUAN</h2>
-         <form id="form1" name="form1" method="post" action="basispengetahuan.php">
-				<label for="sel1">Bagian Tubuh</label>            
-				<select class="form-control" name="tanaman" onChange='this.form.submit();'>
-				<option>Tubuh</option>
-                <option>Tangan</option>
-                <option>Kaki</option>
-  		</select>
-  </form>
-<br>
-<a href="abasispengetahuan.php"><button type="button" class="btn btn-default">
-  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-</button></a>
-        <br><br>
-            <div class="box-body table-responsive">
-                <table id="example1" class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>NO</th>
-                            <th>Id Penyakit</th>
-							<th>Nama Penyakit</th>
-                            <th>Gejala</th>
-                            <th>Detail</th>
-                        </tr>
-                    </thead>
-                     <?php
-                    if(isset($_POST['tanaman']))
-                    if($_POST['tanaman']!="bagiantubuh"){
-                            $queri="Select p.idpenyakit, p.bagiantubuh, b.namapenyakit, b.gejala from basispengetahuan b, penyakit p where p.namapenyakit=b.namapenyakit and p.bagiantubuh=\"".$_POST['tanaman']."\"";
-                    $hasil=mysqli_query ($konek_db,$queri);   
-                    $id = 0;
-                        
-while ($data = mysqli_fetch_array ($hasil)){  
- 			$id++; 
- 			echo "      
-        			<tr>  
-        			<td>".$id."</td>
-					<td>".$data['idpenyakit']."</td>  
-        			<td>".$data['namapenyakit']."</td>  
-                    <td>".$data['gejala']."</td>
-                    <td><a href=\"adeletebasispengetahuan.php?id=".$data['namapenyakit']."\"  onclick='return checkDelete()'><i class='glyphicon glyphicon-trash'></i></a></td>
-                   
-        		</tr>   
-        	";      
-			
-                    }
-                }
- ?>  
-</table><br><br><br><br><br>
-        </div>
-            </div>
+      <?php if($is_admin): ?>
+      <a href="abasispengetahuan.php"><button type="button" class="btn btn-default">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+      </button></a>
+      <?php endif; ?>
+      <br><br>
+      <div class="box-body table-responsive">
+        <table id="example1" class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Kode Penyakit</th>
+              <th>Nama Penyakit</th>
+              <th>Gejala</th>
+              <?php if($is_admin): ?><th>Aksi</th><?php endif; ?>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            $no = 1;
+            $hasil = mysqli_query($konek_db, "SELECT * FROM basispengetahuan");
+            while ($data = mysqli_fetch_array($hasil)) {
+              echo "<tr>";
+              echo "<td>" . $no++ . "</td>";
+              echo "<td>" . $data['namapenyakit'] . "</td>";
+              echo "<td>" . $data['gejala'] . "</td>";
+              if($is_admin) {
+                echo "<td><a href=\"adeletebasispengetahuan.php?id=".$data['namapenyakit']."\" onclick='return checkDelete()'><i class='glyphicon glyphicon-trash'></i></a></td>";
+              }
+              echo "</tr>";
+            }
+            ?>
+          </tbody>
+        </table>
+      </div>
   </div>
 </div>
 
@@ -110,7 +95,7 @@ function checkDelete(){
 </script>
     
 <footer class="container-fluid text-center">
-  <p>S1-Sistem Informasi </p>
+  <p>Sistem Pakar Diagnosa Penyakit Kulit Manusia</p>
 </footer>
 
 </body>

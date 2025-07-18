@@ -4,9 +4,7 @@ include('koneksi.php');
 if(isset($_SESSION['login_user'])){
 header("location: about.php");
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,15 +24,18 @@ header("location: about.php");
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
+        <span class="icon-bar"></span>
       </button>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
+        <li><a href="homeadmin.php">BERANDA</a></li>
+        <li><a href="penyakit.php">NAMA PENYAKIT KULIT</a></li>
+        <li class="active"><a href="gejala.php">GEJALA PENYAKIT KULIT</a></li>
+        <li><a href="basispengetahuan.php">BASIS PENGETAHUAN PENYAKIT KULIT MANUSIA</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-          
-          
+        <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> LOGOUT</a></li>
       </ul>
     </div>
   </div>
@@ -100,7 +101,7 @@ header("location: about.php");
                        $sql = mysqli_query ($konek_db,$tampil);
                        while($data = mysqli_fetch_array ($sql))
                     {
-                       echo "<input type='text'  class='form-control' id='bagiantubuh' name='bagiantubuh' value='".$data['bagiantubuh']."'><br>";
+                       echo "<input type='text'  class='form-control' id='jenistanaman' name='jenistanaman' value='".$data['jenistanaman']."'><br>";
                     }
                 ?>
      		 </div>
@@ -112,8 +113,8 @@ header("location: about.php");
                       $id = $_GET['id'];
                       $gejala       = $_POST['gejala'];
                       $daerah       = $_POST['daerah'];
-                      $bagiantubuh = $_POST['bagiantubuh'];
-                      $query="update gejala SET gejala='".$_POST['gejala']."', daerah='".$_POST['daerah']."', bagiantubuh='".$_POST['bagiantubuh']."' WHERE idgejala='$id'";
+                      $jenistanaman = $_POST['jenistanaman'];
+                      $query="update gejala SET gejala='".$_POST['gejala']."', daerah='".$_POST['daerah']."', jenistanaman='".$_POST['jenistanaman']."' WHERE idgejala='$id'";
                       mysqli_query($konek_db, $query);
                       header('location:gejala.php');
                     }
@@ -124,7 +125,7 @@ header("location: about.php");
 </div>
 
 <footer class="container-fluid text-center">
-  <p>S1-Sistem Informasi 2013</p>
+  <p>Sistem Pakar Diagnosa Penyakit Kulit Manusia</p>
 </footer>
 
 </body>

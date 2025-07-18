@@ -24,13 +24,18 @@ header("location: about.php");
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
+        <span class="icon-bar"></span>
       </button>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
+        <li><a href="homeadmin.php">BERANDA</a></li>
+        <li><a href="penyakit.php">NAMA PENYAKIT KULIT</a></li>
+        <li><a href="gejala.php">GEJALA PENYAKIT KULIT</a></li>
+        <li><a href="basispengetahuan.php">BASIS PENGETAHUAN PENYAKIT KULIT MANUSIA</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+        <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> LOGOUT</a></li>
       </ul>
     </div>
   </div>
@@ -39,120 +44,81 @@ header("location: about.php");
 <div class="container-fluid text-center">    
   <div class="row content">
     <div class="col-sm-2 sidenav">
-  <p><a href="homeadmin.php"><button type="button" class="btn btn-primary btn-block">BERANDA</button></a></p>
-  <p><a href="penyakit.php"><button type="button" class="btn btn-primary btn-block">NAMA PENYAKIT</button></a></p>
-  <p><a href="gejala.php"><button type="button" class="btn btn-primary btn-block">GEJALA</button></a></p>
-  <p><a href="basispengetahuan.php"><button type="button" class="btn btn-primary btn-block active">BASIS PENGETAHUAN</button></a></p>
-  <br><br><br><br><br><br><br><br><br><br>
-  <p><a href="logout.php"><button type="button" class="btn btn-primary btn-block" id="myBtn">LOGOUT</button></a></p>
-</div>
-    <div class="col-sm-8 text-left">  
-      <h2 class="text-center">DETAIL PENYAKIT</h2>
-      <div class="form-group"  method="POST">
-      			<br><label class="control-label col-sm-2">ID :</label>
-      		<div class="col-sm-10">
-                <?php
-                       $tampil = "SELECT * FROM penyakit where idpenyakit='".$_GET['id']."'";
-                       $sql = mysqli_query ($konek_db,$tampil);
-                       while($data = mysqli_fetch_array ($sql))
-                    {
-                       echo "<input type='text'  class='form-control' id='idpenyakit' readonly value='".$data['idpenyakit']."'><br>";
-                    }
-                ?>
-     		 </div>
-        </div>	
-        <div class="form-group"  method="POST">
-      			<br><label class="control-label col-sm-2">NAMA :</label>
-      		<div class="col-sm-10">
-                <?php
-                       $tampil = "SELECT * FROM penyakit where idpenyakit='".$_GET['id']."'";
-                       $sql = mysqli_query ($konek_db,$tampil);
-                       while($data = mysqli_fetch_array ($sql))
-                    {
-                       echo "<input type='text'  class='form-control' id='namapenyakit' readonly value='".$data['namapenyakit']."'><br>";
-                    }
-                ?>
-     		 </div>
+    </div>
+    <div class="col-sm-8 text-left"> 
+      <h2 class="text-center">DETAIL PENYAKIT KULIT MANUSIA</h2>
+      <div class="form-group" method="POST">
+        <br><label class="control-label col-sm-2">ID :</label>
+        <div class="col-sm-10">
+          <?php
+            $tampil = "SELECT * FROM penyakit WHERE idpenyakit='".$_GET['id']."'";
+            $sql = mysqli_query($konek_db, $tampil);
+            while($data = mysqli_fetch_array($sql)) {
+              echo "<input type='text' class='form-control' id='idpenyakit' readonly value='".$data['idpenyakit']."'><br>";
+            }
+          ?>
         </div>
-        <div class="form-group"  method="POST">
-      			<br><label class="control-label col-sm-2">JENIS :</label>
-      		<div class="col-sm-10">
-                <?php
-                       $tampil = "SELECT * FROM penyakit where idpenyakit='".$_GET['id']."'";
-                       $sql = mysqli_query ($konek_db,$tampil);
-                       while($data = mysqli_fetch_array ($sql))
-                    {
-                       echo "<input type='text'  class='form-control' id='jenistubuh' readonly value='".$data['jenistubuh']."'><br>";
-                    }
-                ?>
-     		 </div>
-        </div>	
-         <div class="form-group"  method="POST">
-      			<br><label class="control-label col-sm-2">GEJALA :</label>
-      		<div class="col-sm-10">
-                <?php
-                       $tampil = "SELECT * FROM penyakit p, basispengetahuan b where p.idpenyakit='".$_GET['id']."' and p.namapenyakit=b.namapenyakit";
-                       $sql = mysqli_query ($konek_db,$tampil);
-                       while($data = mysqli_fetch_array ($sql))
-                    {
-                       echo "<input type='text'  class='form-control' id='jenistubuh' readonly value='".$data['gejala']."'><br>";
-                    }                                           
-                 echo "<input type='text'  class='form-control' id='jenistubuh' readonly value=''><br>";
-                ?>
-     		 </div>
-        </div>	
-        <div class="form-group"  method="POST">
-      			<br><label class="control-label col-sm-2">KULTUR TEKNIS :</label><br>
-      		<div class="col-sm-10">
-                <?php
-                       $tampil = "SELECT * FROM penyakit where idpenyakit='".$_GET['id']."'";
-                       $sql = mysqli_query ($konek_db,$tampil);
-                       while($data = mysqli_fetch_array ($sql))
-                    {
-                       echo "<textarea  rows='8' class='form-control' id='penanganan'  readonly>".$data['kulturteknis']."</textarea><br>";
-                    }
-                ?>
-     		 </div>  
+      </div>
+      <div class="form-group" method="POST">
+        <br><label class="control-label col-sm-2">NAMA PENYAKIT :</label>
+        <div class="col-sm-10">
+          <?php
+            $tampil = "SELECT * FROM penyakit WHERE idpenyakit='".$_GET['id']."'";
+            $sql = mysqli_query($konek_db, $tampil);
+            while($data = mysqli_fetch_array($sql)) {
+              echo "<input type='text' class='form-control' id='namapenyakit' readonly value='".$data['namapenyakit']."'><br>";
+            }
+          ?>
         </div>
-         <div class="form-group"  method="POST">
-      			<br><label class="control-label col-sm-2">FISIK MEKANIS :</label><br>
-      		<div class="col-sm-10">
-                <?php
-                       $tampil = "SELECT * FROM penyakit where idpenyakit='".$_GET['id']."'";
-                       $sql = mysqli_query ($konek_db,$tampil);
-                       while($data = mysqli_fetch_array ($sql))
-                    {
-                       echo "<textarea rows='8' class='form-control' id='penanganan' readonly>".$data['fisikmekanis']."</textarea><br>";
-                    }
-                ?>
-     		 </div>  
+      </div>
+      <div class="form-group" method="POST">
+        <br><label class="control-label col-sm-2">GEJALA :</label>
+        <div class="col-sm-10">
+          <?php
+            $tampil = "SELECT * FROM penyakit p, basispengetahuan b WHERE p.idpenyakit='".$_GET['id']."' AND p.namapenyakit=b.namapenyakit";
+            $sql = mysqli_query($konek_db, $tampil);
+            while($data = mysqli_fetch_array($sql)) {
+              echo "<input type='text' class='form-control' readonly value='".$data['gejala']."'><br>";
+            }
+          ?>
         </div>
-         <div class="form-group"  method="POST">
-      			<br><label class="control-label col-sm-2">KIMIAWI :</label><br>
-      		<div class="col-sm-10">
-                <?php
-                       $tampil = "SELECT * FROM penyakit where idpenyakit='".$_GET['id']."'";
-                       $sql = mysqli_query ($konek_db,$tampil);
-                       while($data = mysqli_fetch_array ($sql))
-                    {
-                       echo "<textarea  rows='8' class='form-control' id='penanganan' readonly>".$data['kimiawi']."</textarea><br>";
-                    }
-                ?>
-     		 </div>  
+      </div>
+      <div class="form-group" method="POST">
+        <br><label class="control-label col-sm-2">DESKRIPSI :</label>
+        <div class="col-sm-10">
+          <?php
+            $tampil = "SELECT * FROM penyakit WHERE idpenyakit='".$_GET['id']."'";
+            $sql = mysqli_query($konek_db, $tampil);
+            while($data = mysqli_fetch_array($sql)) {
+              echo "<textarea class='form-control' rows='4' readonly>".$data['deskripsi']."</textarea><br>";
+            }
+          ?>
         </div>
-          <div class="form-group"  method="POST">
-      			<br><label class="control-label col-sm-2">HAYATI :</label><br>
-      		<div class="col-sm-10">
-                <?php
-                       $tampil = "SELECT * FROM penyakit where idpenyakit='".$_GET['id']."'";
-                       $sql = mysqli_query ($konek_db,$tampil);
-                       while($data = mysqli_fetch_array ($sql))
-                    {
-                       echo "<textarea rows='8' class='form-control' id='penanganan' readonly>".$data['hayati']."</textarea><br>";
-                    }
-                ?>
-     		 </div>  
+      </div>
+      <div class="form-group" method="POST">
+        <br><label class="control-label col-sm-2">PENANGANAN MEDIS :</label>
+        <div class="col-sm-10">
+          <?php
+            $tampil = "SELECT * FROM penyakit WHERE idpenyakit='".$_GET['id']."'";
+            $sql = mysqli_query($konek_db, $tampil);
+            while($data = mysqli_fetch_array($sql)) {
+              echo "<textarea class='form-control' rows='4' readonly>".$data['penanganan']."</textarea><br>";
+            }
+          ?>
         </div>
+      </div>
+      <div class="form-group" method="POST">
+        <br><label class="control-label col-sm-2">SARAN PENCEGAHAN :</label>
+        <div class="col-sm-10">
+          <?php
+            $tampil = "SELECT * FROM penyakit WHERE idpenyakit='".$_GET['id']."'";
+            $sql = mysqli_query($konek_db, $tampil);
+            while($data = mysqli_fetch_array($sql)) {
+              echo "<textarea class='form-control' rows='4' readonly>".$data['pencegahan']."</textarea><br>";
+            }
+          ?>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -182,7 +148,7 @@ header("location: about.php");
     </div>
   </div> 
 <footer class="container-fluid text-center">
-  <p>Sipaling Bercerita</p>
+  <p>Sistem Pakar Diagnosa Penyakit Kulit Manusia</p>
 </footer>
 <script>
 $(document).ready(function(){

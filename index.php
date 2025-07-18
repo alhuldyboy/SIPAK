@@ -25,15 +25,18 @@ header("location: about.php");
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
+        <span class="icon-bar"></span>
       </button>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
+        <li class="active"><a href="index.php">BERANDA</a></li>
+        <li><a href="diagnosa.php">DIAGNOSA PENYAKIT KULIT</a></li>
+        <li><a href="daftarpenyakit.php">DAFTAR PENYAKIT KULIT</a></li>
+        <li><a href="about.php">ABOUT</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-          
-          
+        <li><a href="#" id="myBtn"><span class="glyphicon glyphicon-log-in"></span> LOGIN</a></li>
       </ul>
     </div>
   </div>
@@ -42,20 +45,16 @@ header("location: about.php");
 <div class="container-fluid text-center">    
   <div class="row content">
     <div class="col-sm-2 sidenav">
-      <p><a href="index.php"><button type="button" class="btn btn-primary btn-block active">BERANDA</button></a></p>
-      <p><a href="diagnosa.php"><button type="button" class="btn btn-primary btn-block">DIAGNOSA PENYAKIT</button></a></p>
-      <p><a href="daftarpenyakit.php"><button type="button" class="btn btn-primary btn-block">DAFTAR PENYAKIT</button></a></p>
-      
-      <br><br><br><br><br><br><br><br><br><br>
-      <p><button type="button" class="btn btn-primary btn-block" id="myBtn">LOGIN</button></p>
     </div>
     <div class="col-sm-8 text-left"> 
-      <center><h2>SISTEM PAKAR DIAGNOSA PENYAKIT KULIT PADA TUBUH MANUSIA
-</h2></center><br>
+      <center><h2>SISTEM PAKAR DIAGNOSA PENYAKIT KULIT MANUSIA
+      </h2></center><br>
         <div class="panel panel-info">
                 <div class="panel-heading"></div>
                 <div class="panel-body">
-                    <p align=justify>Kulit adalah organ terbesar dan salah satu bagian terpenting dari tubuh manusia. Selain berfungsi sebagai pelindung, kulit juga mencerminkan kondisi kesehatan kita secara keseluruhan. Namun, berbagai faktor seperti infeksi, alergi, genetik, hingga gaya hidup dapat menyebabkan gangguan atau penyakit pada kulit. Melalui situs ini, kami hadir untuk memberikan informasi terpercaya, edukatif, dan mudah dipahami seputar berbagai jenis penyakit kulit—mulai dari yang ringan hingga yang membutuhkan penanganan medis lebih lanjut. Kami berharap, dengan pemahaman yang tepat, Anda dapat lebih waspada dan cepat mengambil tindakan saat menghadapi masalah kulit. Mari jaga kesehatan kulit kita bersama!</p>
+                    <p align="justify">
+                      Kulit manusia merupakan organ terbesar yang memiliki peran penting dalam melindungi tubuh dari berbagai ancaman eksternal, seperti bakteri, virus, dan zat berbahaya lainnya. Selain sebagai pelindung, kulit juga berfungsi dalam mengatur suhu tubuh, mengeluarkan zat sisa melalui keringat, serta sebagai indera peraba yang sangat sensitif. Namun, kulit juga rentan terhadap berbagai penyakit dan gangguan yang dapat memengaruhi kesehatan serta kenyamanan seseorang. Melalui sistem pakar ini, diharapkan dapat membantu masyarakat dalam mengenali dan mendiagnosa penyakit kulit secara dini, sehingga penanganan yang tepat dapat segera dilakukan. Semoga sistem ini dapat menjadi sarana edukasi dan konsultasi yang bermanfaat bagi semua pengguna.
+                    </p>
             </div>
         </div>
       
@@ -76,15 +75,34 @@ header("location: about.php");
           <form role="form" method="post" action="ceklogin.php">
             <div class="form-group" method="post">
               <label for="username"><span class="glyphicon glyphicon-user"></span> Username</label>
-              <input type="text" class="form-control" name="username" id="password" placeholder="Enter username">
+              <input type="text" class="form-control" name="username" placeholder="Enter username">
             </div>
             <div class="form-group" method="post">
               <label for="password"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-              <input type="password" class="form-control" name="password" id="password" placeholder="Enter password">
+              <input type="password" class="form-control" name="password" placeholder="Enter password">
             </div>
-              <button type="submit" id="submit" nama="submit" class="btn btn-primary btn-block" method="post"><span class="glyphicon glyphicon-off"></span> Login</button>
-          </form>     
-            
+            <button type="submit" id="submit" name="submit" class="btn btn-primary btn-block" method="post"><span class="glyphicon glyphicon-off"></span> Login</button>
+          </form>
+          <hr>
+          <div class="text-center">
+            <a href="#" id="showRegister">Belum punya akun? Register di sini</a>
+          </div>
+          <form id="registerForm" method="post" action="register.php" style="display:none; margin-top:20px;">
+            <div class="form-group">
+              <label>Nama Lengkap</label>
+              <input type="text" name="nama" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Username</label>
+              <input type="text" name="username" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" name="submit" class="btn btn-success btn-block">Register</button>
+            <a href="#" id="showLogin" class="btn btn-default btn-block">Kembali ke Login</a>
+          </form>
         </div>
       </div>
         
@@ -95,13 +113,25 @@ header("location: about.php");
   </div> 
 
 <footer class="container-fluid text-center">
-  <p>S1-Sistem Informasi </p>
+  <p>Izza not Izzy</p>
 </footer>
 
 <script>
 $(document).ready(function(){
     $("#myBtn").click(function(){
         $("#myModal").modal();
+    });
+    $("#showRegister").click(function(e){
+        e.preventDefault();
+        $("form[role='form']").hide();
+        $("#registerForm").show();
+        $(this).hide();
+    });
+    $("#showLogin").click(function(e){
+        e.preventDefault();
+        $("#registerForm").hide();
+        $("form[role='form']").show();
+        $("#showRegister").show();
     });
 });
 </script>

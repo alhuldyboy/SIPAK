@@ -15,6 +15,14 @@ header("location: about.php");
   <link rel="stylesheet" href="css/style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+.navbar-nav > .active > a,
+.navbar-nav > .active > a:focus,
+.navbar-nav > .active > a:hover {
+  background-color: #222 !important;
+  color: #fff !important;
+}
+</style>
 </head>
 <body>
 
@@ -22,15 +30,17 @@ header("location: about.php");
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
       </button>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
+        <li class="active"><a href="index.php">BERANDA</a></li>
+        <li><a href="diagnosa.php">DIAGNOSA PENYAKIT KULIT</a></li>
+        <li><a href="daftarpenyakit.php">DAFTAR PENYAKIT KULIT</a></li>
+        <li><a href="about.php">ABOUT</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" id="myBtn"><span class="glyphicon glyphicon-log-in"></span> LOGIN</a></li>
       </ul>
     </div>
   </div>
@@ -39,65 +49,41 @@ header("location: about.php");
 <div class="container-fluid text-center">    
   <div class="row content">
     <div class="col-sm-2 sidenav">
-       <p><a href="index.php"><button type="button" class="btn btn-primary btn-block">BERANDA</button></a></p>
-      <p><a href="diagnosa.php"><button type="button" class="btn btn-primary btn-block">DIAGNOSA PENYAKIT</button></a></p>
-      <p><a href="daftarpenyakit.php"><button type="button" class="btn btn-primary btn-block active">DAFTAR PENYAKIT</button></a></p>
-      
-        <br><br><br><br><br><br><br><br><br><br>
-      <p><button type="button" class="btn btn-primary btn-block" id="myBtn">LOGIN</button></p>
     </div>
     <div class="col-sm-8 text-left"> 
-      <h2 class="text-center">DAFTAR PENYAKIT</h2>
-      <form id="form1" name="form1" method="post" action="daftarpenyakit.php">
-				<label for="sel1">Bagian Tubuh</label>            
-				<select class="form-control" name="tanaman" onChange='this.form.submit();'>
-				<option>Tubuh</option>
-                <option>tangan</option>
-                <option>kaki</option>
-  		</select>
-  </form>
-        
-    	<br>
-            <div class="box-body table-responsive">
-                <table id="example1" class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>NO</th>
-                            <th>ID Penyakit</th>
-							<th>Nama Penyakit</th>
-                            <th>Bagian tubuh</th>
-                            <th>Detail</th>
-                        </tr>
-                    </thead>
-                     <?php
-if(isset($_POST['tubuh']))
-                    if($_POST['tubuh']!="bagiantubuh"){
-$queri="Select * From penyakit where bagiantubuh = \"".$_POST['tubuh']."\"";
-$hasil=mysqli_query ($konek_db,$queri);   
-$id = 0;
-while ($data = mysqli_fetch_array ($hasil)){  
- 			$id++; 
- 			echo "      
-        			<tr>  
-        			<td>".$id."</td>
-					<td>".$data[0]."</td>  
-        			<td>".$data[1]."</td>  
-        			<td>".$data[2]."</td>  
-                    <td><a href=\"detailpenyakit.php?id=".$data[0]."\"><i class='glyphicon glyphicon-search'></i></a></td>
-        		</tr>   
-        	";      
-			}
-                    }
- ?>  
-</table><br><br><br><br><br>
-            </div>
+      <h2 class="text-center">Daftar Penyakit Kulit Manusia</h2>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Kode Penyakit</th>
+              <th>Nama Penyakit</th>
+              <th>Detail</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            $no = 1;
+            $query = mysqli_query($konek_db, "SELECT * FROM penyakit");
+            while ($data = mysqli_fetch_array($query)) {
+              echo '<tr>';
+              echo '<td>' . $no++ . '</td>';
+              echo '<td>' . $data['idpenyakit'] . '</td>';
+              echo '<td>' . $data['namapenyakit'] . '</td>';
+              echo '<td><a href="detailpenyakit.php?id=' . $data['idpenyakit'] . '" class="btn btn-info btn-sm">Detail</a></td>';
+              echo '</tr>';
+            }
+            ?>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
- <div class="modal fade" id="myModal" role="dialog">
+  <!-- Modal Login -->
+  <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-    
-      <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header" style="padding:35px 50px;">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -107,25 +93,57 @@ while ($data = mysqli_fetch_array ($hasil)){
           <form role="form" method="post" action="ceklogin.php">
             <div class="form-group" method="post">
               <label for="username"><span class="glyphicon glyphicon-user"></span> Username</label>
-              <input type="text" class="form-control" name="username" id="password" placeholder="Enter username">
+              <input type="text" class="form-control" name="username" placeholder="Enter username">
             </div>
             <div class="form-group" method="post">
               <label for="password"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-              <input type="password" class="form-control" name="password" id="password" placeholder="Enter password">
+              <input type="password" class="form-control" name="password" placeholder="Enter password">
             </div>
-              <button type="submit" id="submit" nama="submit" class="btn btn-primary btn-block" method="post"><span class="glyphicon glyphicon-off"></span> Login</button>
+            <button type="submit" id="submit" name="submit" class="btn btn-primary btn-block" method="post"><span class="glyphicon glyphicon-off"></span> Login</button>
+          </form>
+          <hr>
+          <div class="text-center">
+            <a href="#" id="showRegister">Belum punya akun? Register di sini</a>
+          </div>
+          <form id="registerForm" method="post" action="register.php" style="display:none; margin-top:20px;">
+            <div class="form-group">
+              <label>Nama Lengkap</label>
+              <input type="text" name="nama" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Username</label>
+              <input type="text" name="username" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" name="submit" class="btn btn-success btn-block">Register</button>
+            <a href="#" id="showLogin" class="btn btn-default btn-block">Kembali ke Login</a>
           </form>
         </div>
       </div>
     </div>
-  </div> 
+  </div>
 <footer class="container-fluid text-center">
-  <p>S1-Sistem Informasi</p>
+  <p>Sistem Pakar Diagnosa Penyakit Kulit Manusia</p>
 </footer>
 <script>
 $(document).ready(function(){
     $("#myBtn").click(function(){
         $("#myModal").modal();
+    });
+    $("#showRegister").click(function(e){
+        e.preventDefault();
+        $("form[role='form']").hide();
+        $("#registerForm").show();
+        $(this).hide();
+    });
+    $("#showLogin").click(function(e){
+        e.preventDefault();
+        $("#registerForm").hide();
+        $("form[role='form']").show();
+        $("#showRegister").show();
     });
 });
 </script>

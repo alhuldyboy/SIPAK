@@ -1,5 +1,6 @@
 <?php
 include('koneksi.php');
+// Registrasi pengguna baru untuk sistem pakar penyakit kulit manusia
 if(isset($_POST['submit'])){
     $username = mysqli_real_escape_string($konek_db, $_POST['username']);
     $password = mysqli_real_escape_string($konek_db, $_POST['password']);
@@ -11,9 +12,9 @@ if(isset($_POST['submit'])){
     } else {
         $query = "INSERT INTO user (username, password, nama) VALUES ('$username', '$password', '$nama')";
         if(mysqli_query($konek_db, $query)){
-            echo '<script>alert("Registrasi berhasil! Silakan login."); window.location="index.php";</script>';
+            echo '<script>alert("Registrasi berhasil! Silakan login ke Sistem Pakar Penyakit Kulit Manusia."); window.location="index.php";</script>';
         } else {
-            echo '<script>alert("Registrasi gagal!");</script>';
+            echo '<script>alert("Registrasi gagal! Mohon coba lagi.");</script>';
         }
     }
 }
@@ -21,13 +22,13 @@ if(isset($_POST['submit'])){
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Register Pengguna Baru</title>
+  <title>Registrasi Pengguna Baru | Sistem Pakar Penyakit Kulit Manusia</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body style="background-color:#f9f9f9;">
+<body style="background-color:#fbe8d3;">
 <div class="container" style="max-width:500px;margin-top:50px;">
   <div class="panel panel-primary">
     <div class="panel-heading text-center"><b>Registrasi Pengguna Baru</b></div>
@@ -51,5 +52,8 @@ if(isset($_POST['submit'])){
     </div>
   </div>
 </div>
+<footer class="container-fluid text-center">
+  <p>Sistem Pakar Diagnosa Penyakit Kulit Manusia</p>
+</footer>
 </body>
 </html>
